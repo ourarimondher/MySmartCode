@@ -43,7 +43,7 @@ export default function StudentDashboard() {
           <p>Aucun cours disponible pour le moment.</p>
         ) : (
           <ul style={listStyle}>
-            {courses.map(course => (
+            {courses.slice().reverse().map(course => (
               <li key={course._id} style={listItemStyle}>
                 <strong>{course.title}</strong>{' '}
                 <button
@@ -62,7 +62,7 @@ export default function StudentDashboard() {
   );
 }
 
-// Styles (identiques à AdminDashboard pour homogénéité)
+// Styles
 const pageContainer = {
   fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
   maxWidth: 1100,

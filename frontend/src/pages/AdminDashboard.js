@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 
 function AdminDashboard() {
   const [selectedTab, setSelectedTab] = useState('courses');
@@ -8,7 +8,6 @@ function AdminDashboard() {
   const [students, setStudents] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
-  // Form add student
   const [fullName, setFullName] = useState('');
   const [studentEmail, setStudentEmail] = useState('');
   const [studentPassword, setStudentPassword] = useState('');
@@ -22,7 +21,7 @@ function AdminDashboard() {
     try {
       const res = await fetch('http://localhost:5000/api/courses/');
       const data = await res.json();
-      setCourses(data);
+      setCourses(data); // on trie côté affichage
     } catch (error) {
       console.error('Erreur récupération cours :', error);
     }
@@ -172,7 +171,7 @@ function AdminDashboard() {
 
             <h3>Liste des cours</h3>
             <ul style={listStyle}>
-              {courses.map((course) => (
+              {courses.slice().reverse().map((course) => (
                 <li key={course._id} style={listItemStyle}>
                   <strong>{course.title}</strong>
                   <div style={buttonGroupStyle}>
@@ -253,7 +252,6 @@ function AdminDashboard() {
 }
 
 // Styles
-
 const pageContainer = {
   fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
   maxWidth: 1100,
@@ -360,7 +358,7 @@ const listStyle = {
 
 const listItemStyle = {
   display: 'flex',
-  alignItems: 'center',      // aligne verticalement
+  alignItems: 'center',
   justifyContent: 'space-between',
   padding: '8px 12px',
   borderBottom: '1px solid #eee',
