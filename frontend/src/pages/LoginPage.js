@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // Redirige si déjà connecté
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    if (role === 'admin') {
+      window.location.href = '/admin';
+    } else if (role === 'student') {
+      window.location.href = '/student';
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,8 +26,11 @@ export default function LoginPage({ onLogin }) {
 
       const data = await res.json();
       if (res.ok) {
+        // Nettoyage avant enregistrement
+        localStorage.clear();
         localStorage.setItem('role', data.role);
-        localStorage.setItem('studentId', data.studentId || '');
+        if (data.studentId) localStorage.setItem('studentId', data.studentId);
+
         if (data.role === 'admin') {
           window.location.href = '/admin';
         } else {
@@ -28,25 +41,13 @@ export default function LoginPage({ onLogin }) {
       }
     } catch (error) {
       console.error('Erreur de connexion :', error);
+      alert("Erreur de connexion. Vérifiez le serveur ou vos identifiants.");
     }
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      height: '100vh',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#f2f4f7',
-      fontFamily: 'Segoe UI, sans-serif'
-    }}>
-      <div style={{
-        width: 400,
-        backgroundColor: 'white',
-        padding: 30,
-        borderRadius: 10,
-        boxShadow: '0 0 10px rgba(0,0,0,0.1)'
-      }}>
+    <div style={containerStyle}>
+      <div style={cardStyle}>
         <h2 style={{ textAlign: 'center', marginBottom: 20 }}>Connexion</h2>
         <form onSubmit={handleSubmit}>
           <label>Email</label>
@@ -78,6 +79,24 @@ export default function LoginPage({ onLogin }) {
     </div>
   );
 }
+
+// Styles
+const containerStyle = {
+  display: 'flex',
+  height: '100vh',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: '#f2f4f7',
+  fontFamily: 'Segoe UI, sans-serif'
+};
+
+const cardStyle = {
+  width: 400,
+  backgroundColor: 'white',
+  padding: 30,
+  borderRadius: 10,
+  boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+};
 
 const inputStyle = {
   width: '100%',

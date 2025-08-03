@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 
 function AdminDashboard() {
   const [selectedTab, setSelectedTab] = useState('courses');
@@ -12,6 +12,10 @@ function AdminDashboard() {
   const [studentEmail, setStudentEmail] = useState('');
   const [studentPassword, setStudentPassword] = useState('');
 
+  // États pour recherche
+  const [searchCourse, setSearchCourse] = useState('');
+  const [searchStudent, setSearchStudent] = useState('');
+
   useEffect(() => {
     fetchCourses();
     fetchStudents();
@@ -21,7 +25,7 @@ function AdminDashboard() {
     try {
       const res = await fetch('http://localhost:5000/api/courses/');
       const data = await res.json();
-      setCourses(data); // on trie côté affichage
+      setCourses(data);
     } catch (error) {
       console.error('Erreur récupération cours :', error);
     }
@@ -125,6 +129,17 @@ function AdminDashboard() {
     window.location.href = '/';
   };
 
+  // Filtrer les cours et étudiants selon recherche
+  const filteredCourses = courses
+    .slice()
+    .reverse()
+    .filter(course => course.title.toLowerCase().includes(searchCourse.toLowerCase()));
+
+  const filteredStudents = students.filter(student =>
+    student.fullName.toLowerCase().includes(searchStudent.toLowerCase()) ||
+    student.email.toLowerCase().includes(searchStudent.toLowerCase())
+  );
+
   return (
     <div style={pageContainer}>
       <header style={headerStyle}>
@@ -169,9 +184,18 @@ function AdminDashboard() {
               </button>
             </form>
 
+            {/* Champ recherche cours */}
+            <input
+              type="text"
+              placeholder="Rechercher un cours..."
+              value={searchCourse}
+              onChange={(e) => setSearchCourse(e.target.value)}
+              style={searchInputStyle}
+            />
+
             <h3>Liste des cours</h3>
             <ul style={listStyle}>
-              {courses.slice().reverse().map((course) => (
+              {filteredCourses.map((course) => (
                 <li key={course._id} style={listItemStyle}>
                   <strong>{course.title}</strong>
                   <div style={buttonGroupStyle}>
@@ -229,9 +253,18 @@ function AdminDashboard() {
               </button>
             </form>
 
+            {/* Champ recherche étudiants */}
+            <input
+              type="text"
+              placeholder="Rechercher un étudiant (nom ou email)..."
+              value={searchStudent}
+              onChange={(e) => setSearchStudent(e.target.value)}
+              style={searchInputStyle}
+            />
+
             <h3>Liste des étudiants</h3>
             <ul style={listStyle}>
-              {students.map((student) => (
+              {filteredStudents.map((student) => (
                 <li key={student._id} style={listItemStyle}>
                   {student.fullName} ({student.email})
                   <button
@@ -401,6 +434,19 @@ const deleteButtonStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+};
+
+// Style du champ recherche (même largeur que formulaire + bouton)
+const searchInputStyle = {
+  width: '100%',
+  maxWidth: 400,
+  padding: '10px 15px',
+  fontSize: 16,
+  borderRadius: 5,
+  border: '1px solid #ced4da',
+  outline: 'none',
+  transition: 'border-color 0.3s ease',
+  marginBottom: 15,
 };
 
 export default AdminDashboard;

@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 export default function StudentDashboard() {
   const [courses, setCourses] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
+  // Vérifier si l'utilisateur est bien un étudiant connecté
   useEffect(() => {
+    const role = localStorage.getItem('role');
+    if (role !== 'student') {
+      window.location.href = '/'; // Redirection si non autorisé
+      return;
+    }
     fetchCourses();
   }, []);
 
@@ -18,8 +25,14 @@ export default function StudentDashboard() {
   };
 
   const handleLogout = () => {
+    localStorage.clear(); // Supprimer les infos de session
     window.location.href = '/';
   };
+
+  const filteredCourses = courses
+    .slice()
+    .reverse()
+    .filter(course => course.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div style={pageContainer}>
@@ -32,18 +45,30 @@ export default function StudentDashboard() {
         <button style={{ ...navButtonStyle, backgroundColor: '#28a745' }}>
           Consultation des cours
         </button>
-        <button onClick={handleLogout} style={{ ...navButtonStyle, marginLeft: 'auto', backgroundColor: '#dc3545' }}>
+        <button
+          onClick={handleLogout}
+          style={{ ...navButtonStyle, marginLeft: 'auto', backgroundColor: '#dc3545' }}
+        >
           Déconnexion
         </button>
       </nav>
 
       <main style={mainContentStyle}>
         <h2>Liste des cours disponibles</h2>
-        {courses.length === 0 ? (
-          <p>Aucun cours disponible pour le moment.</p>
+
+        <input
+          type="text"
+          placeholder="Rechercher un cours..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={searchInputStyle}
+        />
+
+        {filteredCourses.length === 0 ? (
+          <p>Aucun cours trouvé.</p>
         ) : (
           <ul style={listStyle}>
-            {courses.slice().reverse().map(course => (
+            {filteredCourses.map(course => (
               <li key={course._id} style={listItemStyle}>
                 <strong>{course.title}</strong>{' '}
                 <button
@@ -125,6 +150,16 @@ const mainContentStyle = {
   flexGrow: 1,
   overflowY: 'auto',
   color: '#212529',
+};
+
+const searchInputStyle = {
+  marginBottom: 20,
+  padding: '10px',
+  width: '100%',
+  maxWidth: '600px',
+  fontSize: '1rem',
+  border: '1px solid #ccc',
+  borderRadius: '5px',
 };
 
 const listStyle = {
