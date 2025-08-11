@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function AdminDashboard() {
+  const navigate = useNavigate();
+
   const [selectedTab, setSelectedTab] = useState('courses');
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
@@ -15,6 +18,14 @@ function AdminDashboard() {
   // États pour recherche
   const [searchCourse, setSearchCourse] = useState('');
   const [searchStudent, setSearchStudent] = useState('');
+
+  // Vérifie si l'admin est connecté sinon redirige vers login
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    if (role !== 'admin') {
+      navigate('/');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     fetchCourses();
@@ -125,8 +136,11 @@ function AdminDashboard() {
     }
   };
 
+  // Déconnexion propre
   const handleLogout = () => {
-    window.location.href = '/';
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate('/');
   };
 
   // Filtrer les cours et étudiants selon recherche
@@ -184,7 +198,6 @@ function AdminDashboard() {
               </button>
             </form>
 
-            {/* Champ recherche cours */}
             <input
               type="text"
               placeholder="Rechercher un cours..."
@@ -253,7 +266,6 @@ function AdminDashboard() {
               </button>
             </form>
 
-            {/* Champ recherche étudiants */}
             <input
               type="text"
               placeholder="Rechercher un étudiant (nom ou email)..."
@@ -284,7 +296,7 @@ function AdminDashboard() {
   );
 }
 
-// Styles
+/* Styles */
 const pageContainer = {
   fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
   maxWidth: 1100,
@@ -436,7 +448,6 @@ const deleteButtonStyle = {
   justifyContent: 'center',
 };
 
-// Style du champ recherche (même largeur que formulaire + bouton)
 const searchInputStyle = {
   width: '100%',
   maxWidth: 400,
