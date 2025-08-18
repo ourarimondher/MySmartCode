@@ -32,6 +32,11 @@ app.get('/healthz', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Backend is running 🚀' });
 });
 
+// 🏠 Route racine pour éviter "Cannot GET /"
+app.get('/', (req, res) => {
+  res.send('Bienvenue sur le backend MySmartCode 🚀');
+});
+
 // 🚀 Connexion MongoDB + démarrage serveur
 async function startServer() {
   try {
