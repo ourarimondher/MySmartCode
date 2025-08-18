@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminDashboard from './pages/AdminDashboard';
@@ -10,23 +10,30 @@ export default function App() {
   return (
     <Router>
       <Routes>
+        {/* Page de connexion */}
         <Route path="/" element={<LoginPage />} />
+
+        {/* Page d'inscription */}
         <Route path="/register" element={<RegisterPage />} />
-        <Route 
-          path="/admin" 
+
+        {/* Dashboard admin (protégé) */}
+        <Route
+          path="/admin"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRole="admin">
               <AdminDashboard />
             </PrivateRoute>
-          } 
+          }
         />
-        <Route 
-          path="/student" 
+
+        {/* Dashboard étudiant (protégé) */}
+        <Route
+          path="/student"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRole="student">
               <StudentDashboard />
             </PrivateRoute>
-          } 
+          }
         />
       </Routes>
     </Router>

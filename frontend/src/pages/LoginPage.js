@@ -4,13 +4,13 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Redirige si déjà connecté
+  // Redirection automatique si déjà connecté
   useEffect(() => {
     const role = localStorage.getItem('role');
     if (role === 'admin') {
-      window.location.href = '/admin';
+      window.location.href = '/#/admin';
     } else if (role === 'student') {
-      window.location.href = '/student';
+      window.location.href = '/#/student';
     }
   }, []);
 
@@ -18,32 +18,33 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      // ✅ Utilisation de la variable d'environnement pour l'URL du backend
-      const backendURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-      const res = await fetch(`${backendURL}/api/auth/login`, {
+      // URL du backend sur Render
+      const res = await fetch('https://mysmartcode-backend.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
+
       if (res.ok) {
-        // Nettoyage avant enregistrement
+        // Sauvegarde du rôle et ID étudiant (si applicable)
         localStorage.clear();
         localStorage.setItem('role', data.role);
         if (data.studentId) localStorage.setItem('studentId', data.studentId);
 
+        // Redirection selon rôle
         if (data.role === 'admin') {
-          window.location.href = '/admin';
+          window.location.href = '/#/admin';
         } else {
-          window.location.href = '/student';
+          window.location.href = '/#/student';
         }
       } else {
         alert(data.message);
       }
     } catch (error) {
       console.error('Erreur de connexion :', error);
-      alert("Erreur de connexion. Vérifiez le serveur ou vos identifiants.");
+      alert('Erreur de connexion. Vérifiez le serveur ou vos identifiants.');
     }
   };
 
@@ -75,7 +76,7 @@ export default function LoginPage() {
 
         <p style={{ textAlign: 'center', marginTop: 15 }}>
           Pas encore de compte ?{' '}
-          <a href="/register" style={{ color: '#007bff' }}>S’inscrire</a>
+          <a href="/#/register" style={{ color: '#007bff' }}>S’inscrire</a>
         </p>
       </div>
     </div>
