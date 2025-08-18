@@ -18,7 +18,9 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      // ✅ Utilisation de la variable d'environnement pour l'URL du backend
+      const backendURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${backendURL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
