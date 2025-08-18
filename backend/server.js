@@ -1,6 +1,6 @@
 // backend/server.js
 
-require('dotenv').config();
+require('dotenv').config(); // Charger les variables d'environnement
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -27,27 +27,35 @@ app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/students', studentRoutes);
 
-// 🔍 Endpoint de test (health check pour Render)
+// 🧪 Endpoint de test pour vérifier que le backend fonctionne
+app.get('/api/test', (req, res) => {
+  res.status(200).json({ message: 'Test réussi ! Backend fonctionne 🚀' });
+});
+
+// 🔍 Endpoint de health check pour Render
 app.get('/healthz', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Backend is running 🚀' });
 });
 
-// 🏠 Route racine pour éviter "Cannot GET /"
+// 🏠 Route racine pour vérifier que le serveur est accessible
 app.get('/', (req, res) => {
   res.send('Bienvenue sur le backend MySmartCode 🚀');
 });
 
-// 🚀 Connexion MongoDB + démarrage serveur
+// 🚀 Connexion à MongoDB + démarrage du serveur
 async function startServer() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
-
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
     console.log('✅ MongoDB connecté');
 
+    // Créer un admin par défaut si aucun n’existe
     await createAdminIfNotExists();
 
     const PORT = process.env.PORT || 5000;
-    // ⚡ Obligatoire pour Render : écouter sur 0.0.0.0
+    // ⚡ Render exige d’écouter sur 0.0.0.0
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Serveur backend lancé sur port ${PORT}`);
     });
