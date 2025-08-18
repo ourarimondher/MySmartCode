@@ -27,22 +27,24 @@ app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/students', studentRoutes);
 
+// 🔍 Endpoint de test (health check pour Render)
+app.get('/healthz', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'Backend is running 🚀' });
+});
+
 // 🚀 Connexion MongoDB + démarrage serveur
 async function startServer() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      // Ces options ne sont plus nécessaires dans les versions récentes
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URI);
 
     console.log('✅ MongoDB connecté');
 
     await createAdminIfNotExists();
 
     const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-      console.log(`🚀 Serveur backend lancé sur http://localhost:${PORT}`);
+    // ⚡ Obligatoire pour Render : écouter sur 0.0.0.0
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`🚀 Serveur backend lancé sur port ${PORT}`);
     });
   } catch (err) {
     console.error('❌ Erreur MongoDB ou serveur :', err);
