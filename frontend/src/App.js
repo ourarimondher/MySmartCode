@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
@@ -21,11 +22,21 @@ function ProtectedRoute({ children, role }) {
 
   return children;
 }
+=======
+import React from "react";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import StudentDashboard from "./pages/StudentDashboard";
+import PrivateRoute from "./components/PrivateRoute";
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
 
 export default function App() {
   return (
     <Router>
       <Routes>
+<<<<<<< HEAD
         <Route path="/" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
@@ -46,6 +57,31 @@ export default function App() {
             <ProtectedRoute role="student">
               <StudentDashboard />
             </ProtectedRoute>
+=======
+        {/* Page de connexion */}
+        <Route path="/" element={<LoginPage />} />
+
+        {/* Page d'inscription */}
+        <Route path="/register" element={<RegisterPage />} />
+
+        {/* Dashboard admin (protégé) */}
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute allowedRole="admin">
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Dashboard étudiant (protégé) */}
+        <Route
+          path="/student"
+          element={
+            <PrivateRoute allowedRole="student">
+              <StudentDashboard />
+            </PrivateRoute>
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
           }
         />
       </Routes>

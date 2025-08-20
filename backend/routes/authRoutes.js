@@ -1,8 +1,13 @@
+<<<<<<< HEAD
+=======
+// backend/routes/authRoutes.js
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const Student = require('../models/Student');
 
+<<<<<<< HEAD
 // 🔹 Route test GET accessible
 router.get('/test', (req, res) => {
   res.status(200).send('Bienvenue sur le backend MySmartCode 🚀 (route /api/auth/test)');
@@ -13,6 +18,13 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   // Connexion admin
+=======
+// Connexion admin + étudiant
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  // Connexion admin (identifiants fixes)
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
   if (email === 'admin@gmail.com' && password === 'admin123') {
     return res.status(200).json({ message: 'Admin connecté', role: 'admin' });
   }
@@ -32,11 +44,19 @@ router.post('/login', async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 // 🔹 Inscription étudiant
+=======
+// Inscription étudiant
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
 router.post('/register', async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
 
+<<<<<<< HEAD
+=======
+    // Vérifier si l'email existe déjà
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
     const existingStudent = await Student.findOne({ email });
     if (existingStudent) return res.status(400).json({ message: 'Email déjà utilisé' });
 

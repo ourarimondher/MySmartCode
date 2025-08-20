@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "mysmartcode-backend",
   "version": "1.0.0",
   "description": "Backend Node.js pour l'application e-learning MySmartCode",
@@ -24,5 +25,21 @@
   },
   "engines": {
     "node": ">=18"
+=======
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "multer": "^2.0.2",
+    "path": "^0.12.7"
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
   }
 }

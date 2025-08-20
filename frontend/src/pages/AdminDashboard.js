@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 
 function AdminDashboard() {
+=======
+import { useNavigate } from 'react-router-dom';
+
+function AdminDashboard() {
+  const navigate = useNavigate();
+
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
   const [selectedTab, setSelectedTab] = useState('courses');
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
@@ -16,6 +24,17 @@ function AdminDashboard() {
   const [searchCourse, setSearchCourse] = useState('');
   const [searchStudent, setSearchStudent] = useState('');
 
+<<<<<<< HEAD
+=======
+  // Vérifie si l'admin est connecté sinon redirige vers login
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    if (role !== 'admin') {
+      navigate('/');
+    }
+  }, [navigate]);
+
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
   useEffect(() => {
     fetchCourses();
     fetchStudents();
@@ -125,8 +144,16 @@ function AdminDashboard() {
     }
   };
 
+<<<<<<< HEAD
   const handleLogout = () => {
     window.location.href = '/';
+=======
+  // Déconnexion propre
+  const handleLogout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate('/');
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
   };
 
   // Filtrer les cours et étudiants selon recherche
@@ -184,7 +211,10 @@ function AdminDashboard() {
               </button>
             </form>
 
+<<<<<<< HEAD
             {/* Champ recherche cours */}
+=======
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
             <input
               type="text"
               placeholder="Rechercher un cours..."
@@ -253,7 +283,10 @@ function AdminDashboard() {
               </button>
             </form>
 
+<<<<<<< HEAD
             {/* Champ recherche étudiants */}
+=======
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
             <input
               type="text"
               placeholder="Rechercher un étudiant (nom ou email)..."
@@ -284,7 +317,11 @@ function AdminDashboard() {
   );
 }
 
+<<<<<<< HEAD
 // Styles
+=======
+/* Styles */
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
 const pageContainer = {
   fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
   maxWidth: 1100,
@@ -436,7 +473,10 @@ const deleteButtonStyle = {
   justifyContent: 'center',
 };
 
+<<<<<<< HEAD
 // Style du champ recherche (même largeur que formulaire + bouton)
+=======
+>>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
 const searchInputStyle = {
   width: '100%',
   maxWidth: 400,
