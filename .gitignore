@@ -1,0 +1,41 @@
+# 🧠 Ignorer les fichiers sensibles et inutiles pour Git
+
+# 🔹 Node.js (backend et frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 🔹 Environnements
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 🔹 React (build et cache)
+frontend/build/
+frontend/.cache/
+
+# 🔹 Fichiers de production éventuels
+dist/
+build/
+
+# 🔹 MongoDB fichiers locaux (si exportés)
+dump/
+
+# 🔹 Uploads (fichiers téléversés par l’admin)
+backend/uploads/
+
+# 🔹 VS Code settings (facultatif)
+.vscode/
+
+# 🔹 Systèmes
+.DS_Store
+Thumbs.db
+
+# 🔹 Logs
+*.log
+
+# 🔹 Test coverage
+coverage/
