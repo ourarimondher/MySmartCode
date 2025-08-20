@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
-
-function AdminDashboard() {
-=======
 import { useNavigate } from 'react-router-dom';
 
 function AdminDashboard() {
   const navigate = useNavigate();
-
->>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
   const [selectedTab, setSelectedTab] = useState('courses');
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
@@ -20,12 +14,9 @@ function AdminDashboard() {
   const [studentEmail, setStudentEmail] = useState('');
   const [studentPassword, setStudentPassword] = useState('');
 
-  // États pour recherche
   const [searchCourse, setSearchCourse] = useState('');
   const [searchStudent, setSearchStudent] = useState('');
 
-<<<<<<< HEAD
-=======
   // Vérifie si l'admin est connecté sinon redirige vers login
   useEffect(() => {
     const role = localStorage.getItem('role');
@@ -34,7 +25,6 @@ function AdminDashboard() {
     }
   }, [navigate]);
 
->>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
   useEffect(() => {
     fetchCourses();
     fetchStudents();
@@ -144,19 +134,12 @@ function AdminDashboard() {
     }
   };
 
-<<<<<<< HEAD
-  const handleLogout = () => {
-    window.location.href = '/';
-=======
-  // Déconnexion propre
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
     navigate('/');
->>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
   };
 
-  // Filtrer les cours et étudiants selon recherche
   const filteredCourses = courses
     .slice()
     .reverse()
@@ -187,7 +170,10 @@ function AdminDashboard() {
         >
           Gestion des étudiants
         </button>
-        <button onClick={handleLogout} style={{ ...navButtonStyle, marginLeft: 'auto', backgroundColor: '#dc3545' }}>
+        <button
+          onClick={handleLogout}
+          style={{ ...navButtonStyle, marginLeft: 'auto', backgroundColor: '#dc3545' }}
+        >
           Déconnexion
         </button>
       </nav>
@@ -211,10 +197,6 @@ function AdminDashboard() {
               </button>
             </form>
 
-<<<<<<< HEAD
-            {/* Champ recherche cours */}
-=======
->>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
             <input
               type="text"
               placeholder="Rechercher un cours..."
@@ -283,10 +265,6 @@ function AdminDashboard() {
               </button>
             </form>
 
-<<<<<<< HEAD
-            {/* Champ recherche étudiants */}
-=======
->>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
             <input
               type="text"
               placeholder="Rechercher un étudiant (nom ou email)..."
@@ -317,176 +295,23 @@ function AdminDashboard() {
   );
 }
 
-<<<<<<< HEAD
-// Styles
-=======
-/* Styles */
->>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
-const pageContainer = {
-  fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
-  maxWidth: 1100,
-  margin: '30px auto',
-  boxShadow: '0 0 15px rgba(0,0,0,0.1)',
-  borderRadius: 8,
-  backgroundColor: '#fff',
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '80vh',
-};
-
-const headerStyle = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  backgroundColor: '#fff',
-  padding: '20px 30px',
-  borderBottom: '1px solid #ddd',
-  color: '#212529',
-  fontWeight: '700',
-  fontSize: '1.5rem',
-  userSelect: 'none',
-};
-
-const logoStyle = {
-  color: '#007bff',
-  fontWeight: '700',
-};
-
-const pageTitleStyle = {
-  color: '#6c757d',
-  fontSize: '1.25rem',
-  fontWeight: '500',
-};
-
-const navStyle = {
-  display: 'flex',
-  backgroundColor: '#fff',
-  padding: '12px 30px',
-  gap: '15px',
-  borderBottom: '1px solid #ddd',
-  userSelect: 'none',
-};
-
-const navButtonStyle = {
-  flex: '1 1 150px',
-  padding: '10px 0',
-  fontWeight: '600',
-  fontSize: '1rem',
-  borderRadius: 5,
-  border: 'none',
-  color: 'white',
-  backgroundColor: '#007bff',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s ease',
-};
-
-const navButtonActive = {
-  backgroundColor: '#28a745',
-};
-
-const mainContentStyle = {
-  padding: 30,
-  flexGrow: 1,
-  overflowY: 'auto',
-  color: '#212529',
-};
-
-const formStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 15,
-  maxWidth: 400,
-  marginBottom: 30,
-};
-
-const inputStyle = {
-  padding: '10px 15px',
-  fontSize: 16,
-  borderRadius: 5,
-  border: '1px solid #ced4da',
-  outline: 'none',
-  transition: 'border-color 0.3s ease',
-};
-
-const submitButtonStyle = {
-  padding: '12px 0',
-  backgroundColor: '#007bff',
-  border: 'none',
-  borderRadius: 5,
-  color: 'white',
-  fontWeight: '600',
-  fontSize: 16,
-  cursor: 'pointer',
-  transition: 'background-color 0.3s ease',
-};
-
-const listStyle = {
-  listStyle: 'none',
-  padding: 0,
-  maxWidth: 600,
-};
-
-const listItemStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: '8px 12px',
-  borderBottom: '1px solid #eee',
-  fontSize: 16,
-};
-
-const buttonGroupStyle = {
-  display: 'flex',
-  gap: '10px',
-  alignItems: 'center',
-};
-
-const showButtonStyle = {
-  backgroundColor: '#28a745',
-  border: 'none',
-  borderRadius: 5,
-  color: 'white',
-  cursor: 'pointer',
-  padding: '6px 12px',
-  fontWeight: '600',
-  fontSize: 14,
-  transition: 'background-color 0.3s ease',
-  height: '36px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-const deleteButtonStyle = {
-  backgroundColor: '#dc3545',
-  border: 'none',
-  borderRadius: 5,
-  color: 'white',
-  cursor: 'pointer',
-  padding: '6px 12px',
-  fontWeight: '600',
-  fontSize: 14,
-  transition: 'background-color 0.3s ease',
-  height: '36px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-<<<<<<< HEAD
-// Style du champ recherche (même largeur que formulaire + bouton)
-=======
->>>>>>> 9d4798899de4ea789d5e01ec06657ae969674901
-const searchInputStyle = {
-  width: '100%',
-  maxWidth: 400,
-  padding: '10px 15px',
-  fontSize: 16,
-  borderRadius: 5,
-  border: '1px solid #ced4da',
-  outline: 'none',
-  transition: 'border-color 0.3s ease',
-  marginBottom: 15,
-};
+// Styles (inchangés)
+const pageContainer = { fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif', maxWidth: 1100, margin: '30px auto', boxShadow: '0 0 15px rgba(0,0,0,0.1)', borderRadius: 8, backgroundColor: '#fff', display: 'flex', flexDirection: 'column', minHeight: '80vh' };
+const headerStyle = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#fff', padding: '20px 30px', borderBottom: '1px solid #ddd', color: '#212529', fontWeight: '700', fontSize: '1.5rem', userSelect: 'none' };
+const logoStyle = { color: '#007bff', fontWeight: '700' };
+const pageTitleStyle = { color: '#6c757d', fontSize: '1.25rem', fontWeight: '500' };
+const navStyle = { display: 'flex', backgroundColor: '#fff', padding: '12px 30px', gap: '15px', borderBottom: '1px solid #ddd', userSelect: 'none' };
+const navButtonStyle = { flex: '1 1 150px', padding: '10px 0', fontWeight: '600', fontSize: '1rem', borderRadius: 5, border: 'none', color: 'white', backgroundColor: '#007bff', cursor: 'pointer', transition: 'background-color 0.3s ease' };
+const navButtonActive = { backgroundColor: '#28a745' };
+const mainContentStyle = { padding: 30, flexGrow: 1, overflowY: 'auto', color: '#212529' };
+const formStyle = { display: 'flex', flexDirection: 'column', gap: 15, maxWidth: 400, marginBottom: 30 };
+const inputStyle = { padding: '10px 15px', fontSize: 16, borderRadius: 5, border: '1px solid #ced4da', outline: 'none', transition: 'border-color 0.3s ease' };
+const submitButtonStyle = { padding: '12px 0', backgroundColor: '#007bff', border: 'none', borderRadius: 5, color: 'white', fontWeight: '600', fontSize: 16, cursor: 'pointer', transition: 'background-color 0.3s ease' };
+const listStyle = { listStyle: 'none', padding: 0, maxWidth: 600 };
+const listItemStyle = { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', borderBottom: '1px solid #eee', fontSize: 16 };
+const buttonGroupStyle = { display: 'flex', gap: '10px', alignItems: 'center' };
+const showButtonStyle = { backgroundColor: '#28a745', border: 'none', borderRadius: 5, color: 'white', cursor: 'pointer', padding: '6px 12px', fontWeight: '600', fontSize: 14, transition: 'background-color 0.3s ease', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' };
+const deleteButtonStyle = { backgroundColor: '#dc3545', border: 'none', borderRadius: 5, color: 'white', cursor: 'pointer', padding: '6px 12px', fontWeight: '600', fontSize: 14, transition: 'background-color 0.3s ease', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' };
+const searchInputStyle = { width: '100%', maxWidth: 400, padding: '10px 15px', fontSize: 16, borderRadius: 5, border: '1px solid #ced4da', outline: 'none', transition: 'border-color 0.3s ease', marginBottom: 15 };
 
 export default AdminDashboard;

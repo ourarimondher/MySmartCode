@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function StudentDashboard() {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -8,11 +10,11 @@ export default function StudentDashboard() {
   useEffect(() => {
     const role = localStorage.getItem('role');
     if (role !== 'student') {
-      window.location.href = '/'; // Redirection si non autorisé
+      navigate('/'); // Redirection si non autorisé
       return;
     }
     fetchCourses();
-  }, []);
+  }, [navigate]);
 
   const fetchCourses = async () => {
     try {
@@ -25,8 +27,8 @@ export default function StudentDashboard() {
   };
 
   const handleLogout = () => {
-    localStorage.clear(); // Supprimer les infos de session
-    window.location.href = '/';
+    localStorage.clear();
+    navigate('/'); // redirection propre
   };
 
   const filteredCourses = courses
@@ -87,7 +89,7 @@ export default function StudentDashboard() {
   );
 }
 
-// Styles
+// Styles (inchangés)
 const pageContainer = {
   fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
   maxWidth: 1100,
